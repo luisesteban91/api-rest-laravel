@@ -69,6 +69,8 @@ Route::get('/test-orm', 'PruebasController@testOrm');
 		Route::get('/api/post/category/{id}', 'PostController@getPostByCategory');
 		Route::get('/api/post/user/{id}', 'PostController@getPostsByUser');
 
+		#RUTAS DE DISTRIBUIDORES
+		Route::post('/api/distribuidor', 'DistribuidorController@show');
 
 
 
