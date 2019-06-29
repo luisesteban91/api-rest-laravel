@@ -38,11 +38,11 @@ Class DistribuidorController extends Controller {
             ]);
 
             if($validate->fails()){
-                $data = array([
+                $data = array(
                     'code' => 400,
                     'status' => 'error',
                     'message' => 'no se ha econtrado alguna relacion'
-                ]);
+                );
             }else{
                 
                 $lat = $params_array['lat'];
@@ -50,23 +50,23 @@ Class DistribuidorController extends Controller {
 
                 $distribuidores = DBFunctions::getDistribuidores($lat, $long);
 
-                $data = array([
+                $data = array(
                     'code' => 200,
                     'status' => 'success',
                     'distribuidores' => $distribuidores
-                ]);                
+                );                
             }
         }else{
-            $data = array([
+            $data = array(
                 'code' => 400,
                 'status' => 'error',
                 'message' => 'no has enviado datos vacios'
-            ]);
+            );
         }
 
         //var_dump($data);die();
 
-        return response()->json($data);
+        return response()->json($data, $data['code']);
         
     }
 }   
