@@ -34,7 +34,7 @@ Class DistribuidorController extends Controller {
             #VALIDAR DATOS
             $validate = \Validator::make($params_array, [
                 'lat' => 'required',
-                'long' => 'required'
+                'lng' => 'required'
             ]);
 
             if($validate->fails()){
@@ -46,7 +46,7 @@ Class DistribuidorController extends Controller {
             }else{
                 
                 $lat = $params_array['lat'];
-                $long = $params_array['long'];
+                $long = $params_array['lng'];
 
                 $distribuidores = DBFunctions::getDistribuidores($lat, $long);
 
@@ -64,9 +64,9 @@ Class DistribuidorController extends Controller {
             ]);
         }
 
-        var_dump($data);die();
+        //var_dump($data);die();
 
-        return response()->json($data, $data['code']);
+        return response()->json($data);
         
     }
 }   
