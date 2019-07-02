@@ -69,4 +69,64 @@ Class DistribuidorController extends Controller {
         return response()->json($data, $data['code']);
         
     }
+
+    public function create(Request $request){
+        #RECOGER LOS DATOS POR POST
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+        $params_array = json_decode($json, true);
+
+        if(!empty($params_array)){
+            #VALIDAR DATOS
+            $validate = \Validator::make($params_array, [
+                'clave_interna' => 'required',
+                'nombre' => 'required',
+                'estado' => 'required',
+                'codigo_postal' => 'required',
+                'lat' => 'required',
+                'lng' => 'required',
+                'estatus' => 'required',
+                'domicilio' => 'required',
+                'zona' => 'required'
+            ]);
+
+            if($validate->fails()){
+                $data = array(
+                    'code' => 400,
+                    'status' => 'error',
+                    'message' => 'no se ha econtrado alguna relacion'
+                );
+            }else{
+                
+               
+                #GUARDAR ARTICULO
+	    		$distribuidor = new Distribuidor();
+	    		$distribuidor->clave_interna = $params->clave_interna;
+	    		$distribuidor->nombre = $params->nombre;
+	    		$distribuidor->estado = $params->estado;
+	    		$distribuidor->codigo_postal = $params->codigo_postal;
+                $distribuidor->lat = $params->lat;
+                $distribuidor->lng = $params->lng;
+                $distribuidor->estatus = $params->estatus;
+                $distribuidor->domicilio = $params->domicilio;
+                $distribuidor->zona = $params->zona;
+                
+	    		$distribuidor->save();
+                
+
+                $data = array(
+                    'code' => 200,
+                    'status' => 'success',
+                    'distribuidores' => $distribuidor
+                );                
+            }
+        }else{
+            $data = array(
+                'code' => 400,
+                'status' => 'error',
+                'message' => 'no has enviado datos vacios'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
 }   

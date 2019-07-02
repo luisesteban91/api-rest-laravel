@@ -71,6 +71,7 @@ Route::get('/test-orm', 'PruebasController@testOrm');
 
 		#RUTAS DE DISTRIBUIDORES
 		Route::post('/api/distribuidor', 'DistribuidorController@show');
+		Route::post('/api/distribuidor/create', 'DistribuidorController@create');
 
 
 
